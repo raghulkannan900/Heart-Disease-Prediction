@@ -1,0 +1,92 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | HeartCare</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="dashboard-body">
+
+    <nav class="navbar">
+        <div class="logo">❤️ HeartCare</div>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                Logout
+            </button>
+        </form>
+    </nav>
+
+    <section class="dashboard-container">
+
+        <h1>Welcome, {{ request.user.username }}!</h1>
+
+        <p>
+            Welcome to your personal HeartCare dashboard.
+        </p>
+
+        <div class="dashboard-card">
+
+            <div class="icon">❤️</div>
+
+            <h2>Heart Health Assessment</h2>
+
+            <p>
+                You can use our educational assessment
+                to explore potential heart disease risk.
+            </p>
+
+            <p class="coming-soon">
+                Prediction feature coming in the next step!
+            </p>
+
+        </div>
+
+    </section>
+
+</body>
+</html>
+
+<section class="dashboard-card">
+    <h2>Heart Disease Risk Assessment</h2>
+
+    <p>
+        Enter the requested health information below.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="auth-btn">
+            Submit Health Information
+        </button>
+    </form>
+
+    <p>
+        This educational tool is not a medical diagnosis.
+        Consult a healthcare professional for medical advice.
+    </p>
+</section>
+<form method="POST">
+    {% csrf_token %}
+
+    {% if submitted %}
+        <p style="color: green;">
+            Your information has been successfully validated!
+            The prediction model is not connected yet.
+        </p>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="auth-btn">
+        Submit Health Information
+    </button>
+</form>
